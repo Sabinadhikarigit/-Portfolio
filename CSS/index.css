@@ -1,0 +1,215 @@
+
+    /* =========================
+       THEME VARIABLES (easy to tweak)
+       ========================= */
+    :root{
+      /* primary palette */
+      --bg-deep: #3d0e3c;              /* requested background */
+      --btn-accent: #ad2dd3;           /* requested button color */
+      /* blue animated mix (used as primary animated accent) */
+      --blue-1: #3a8ef6;
+      --blue-2: #0068ff;
+      --blue-3: #004cff;
+
+      /* neutrals */
+      --text: #e9e9f1;
+      --muted: rgba(233,233,241,0.75);
+
+      /* layout */
+      --max-width: 1200px;
+      --radius: 12px;
+      --glass: rgba(255,255,255,0.04);
+      --glass-strong: rgba(255,255,255,0.06);
+
+      /* transitions */
+      --fast: 180ms;
+      --med: 300ms;
+      --slow: 600ms;
+    }
+
+    /* Dark / Light theme overrides */
+    :root[data-theme="light"]{
+      --bg-deep: linear-gradient(180deg, #fafcff, #eef2ff);
+      --text: #1b1b1f;
+      --muted: rgba(27,27,31,0.65);
+      --glass: rgba(255,255,255,0.6);
+      --glass-strong: rgba(255,255,255,0.8);
+    }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      :root{ --slow: 0ms; --med: 0ms; --fast: 0ms; }
+    }
+
+    /* =========================
+       BASIC RESET & LAYOUT
+       ========================= */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: 'Poppins', sans-serif;
+      color:var(--text);
+      background: var(--bg-deep);
+      background-size:cover;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      overflow-x:hidden;
+      transition: background var(--med) ease, color var(--med) ease;
+    }
+
+    /* container center */
+    .wrap{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+
+    /* =========================
+       NAV
+       ========================= */
+    nav{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:18px 0;position:sticky;top:0;z-index:50;
+      background: linear-gradient(180deg, rgba(0,0,0,0.18), transparent);
+      backdrop-filter: blur(6px);
+    }
+    .logo{font-weight:700;color:var(--btn-accent);font-size:20px}
+    nav ul{display:flex;gap:18px;list-style:none}
+    nav a{color:var(--text);text-decoration:none;font-weight:600;opacity:.95}
+    nav a:hover{opacity:1;transform:translateY(-2px);transition:var(--fast) transform}
+    .controls{display:flex;gap:12px;align-items:center}
+
+    /* toggle button */
+    .toggle{
+      background:transparent;border:2px solid var(--btn-accent);
+      color:var(--btn-accent);padding:8px 12px;border-radius:999px;
+      cursor:pointer;font-weight:600;display:inline-flex;gap:8px;align-items:center;
+      transition:all var(--fast) ease;
+    }
+    .toggle:active{transform:scale(.98)}
+
+    /* =========================
+       HERO
+       ========================= */
+    header{
+      display:flex;gap:28px;align-items:center;padding:64px 0 48px;
+      animation:fadeIn .9s ease both;
+    }
+    .hero-left{flex:1;max-width:55%}
+    .hero-right{width:320px;min-width:220px;display:flex;justify-content:center}
+
+    h1{
+      font-size:44px;margin-bottom:8px;
+      background: linear-gradient(90deg,var(--blue-1),var(--blue-2),var(--blue-3));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      background-size:200% 200%;animation:headingMove 6s ease infinite;
+    }
+    h2{font-size:28px;margin-bottom:18px;color:var(--muted)}
+
+    @keyframes headingMove{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    p.lead{font-size:18px;color:var(--muted);margin-bottom:20px}
+
+    .cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+    .btn{
+      background:var(--btn-accent);color:#fff;border:none;padding:12px 20px;border-radius:999px;
+      cursor:pointer;font-weight:700;box-shadow:0 6px 18px rgba(0,0,0,0.18);
+      transition:transform var(--fast) ease, box-shadow var(--fast) ease;
+    }
+    .btn:active{transform:translateY(1px)}
+    .btn.secondary{
+      background: linear-gradient(90deg,var(--blue-2),var(--blue-3));
+      border:2px solid rgba(255,255,255,0.06);
+    }
+
+    /* simple social icons */
+    .social-icons a{color:var(--text);margin-right:12px;font-size:20px;opacity:.9}
+    .social-icons a:hover{transform:rotate(360deg);transition:transform 600ms linear}
+
+    /* =========================
+       PROFILE PIE (image + orbit icons)
+       ========================= */
+    .profile-container{position:relative;width:320px;height:320px;border-radius:50%;display:grid;place-items:center}
+    .profile-container img{
+      width:100%;height:100%;object-fit:cover;border-radius:50%;border:6px solid rgba(255,255,255,0.06);
+      box-shadow:0 20px 40px rgba(2,6,23,0.5);
+    }
+
+    /* orbit icons - use transform-only animation for perf */
+    .orbit-icon{
+      position:absolute;top:50%;left:50%;width:52px;height:52px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;background:linear-gradient(90deg,var(--blue-1),var(--blue-2));
+      color:#fff;font-size:20px;transform-origin:center center;filter:drop-shadow(0 6px 12px rgba(0,0,0,0.35));
+      animation:orbit 12s linear infinite;
+    }
+    .orbit-icon:nth-child(2){animation-duration:10s}
+    .orbit-icon:nth-child(3){animation-duration:14s}
+    .orbit-icon:nth-child(4){animation-duration:11s}
+
+    @keyframes orbit{
+      0%{transform:rotate(0deg) translateX(150px) rotate(0deg)}
+      100%{transform:rotate(360deg) translateX(150px) rotate(-360deg)}
+    }
+
+    /* =========================
+       DIVIDER (animated blue gradient bar)
+       ========================= */
+    .divider{
+      height:3px;width:100%;border-radius:8px;margin:48px 0;
+      background:linear-gradient(90deg,var(--blue-1),var(--blue-2),var(--blue-3));
+      background-size:200% 200%;animation:dividerShift 6s linear infinite;
+    }
+    @keyframes dividerShift{0%{background-position:0%}50%{background-position:100%}100%{background-position:0%}}
+
+    /* =========================
+       ABOUT (table + services)
+       ========================= */
+    #about{display:flex;gap:28px;align-items:center;padding:48px 0;background:var(--glass);border-radius:16px;padding:48px}
+    #about img{width:220px;height:220px;border-radius:50%;border:5px solid rgba(255,255,255,0.05);object-fit:cover}
+    #about h2{font-size:30px;margin-bottom:10px;color:var(--text)}
+    table{width:100%;border-collapse:collapse;margin-top:10px}
+    th,td{padding:12px;border:1px solid rgba(255,255,255,0.04);text-align:left;background:rgba(255,255,255,0.02);font-size:14px}
+    th{background:linear-gradient(90deg,var(--blue-2),var(--blue-3));color:#fff}
+
+    .services{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+    .services button{background:transparent;border:1.5px solid var(--btn-accent);color:var(--text);padding:8px 14px;border-radius:999px;cursor:pointer}
+
+    /* =========================
+       SKILLS / PROJECTS / CONTACT
+       ========================= */
+    section{padding:48px 0}
+    #skills .skill{display:flex;justify-content:space-between;align-items:center;max-width:640px;margin:10px auto;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02)}
+    .stars{color:gold}
+
+    .project-cards{display:flex;gap:20px;flex-wrap:wrap;justify-content:center}
+    .project-card{width:300px;padding:18px;border-radius:14px;background:var(--glass-strong);box-shadow:0 12px 30px rgba(0,0,0,0.25);transition:transform var(--fast)}
+    .project-card img{width:100%;border-radius:8px}
+    .project-card a{display:inline-block;margin-top:8px;text-decoration:none;padding:8px 14px;border-radius:999px;background:var(--btn-accent);color:#fff}
+
+    /* CONTACT */
+    #contact form{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+    input,textarea{padding:12px;border-radius:10px;border:none;background:rgba(255,255,255,0.03);color:var(--text);outline:none}
+    textarea{min-height:120px;resize:vertical}
+    footer{padding:24px 0;text-align:center;color:var(--muted)}
+
+    /* small screens */
+    @media (max-width:1024px){
+      header{flex-direction:column;text-align:center}
+      .hero-left{max-width:100%}
+      .hero-right{width:260px}
+      .profile-container{width:260px;height:260px}
+      #about{flex-direction:column;text-align:center;padding:36px}
+      #about img{margin-bottom:14px}
+      .project-cards{flex-direction:column;align-items:center}
+    }
+
+    @media (max-width:480px){
+      h1{font-size:28px}
+      h2{font-size:20px}
+      .profile-container{width:180px;height:180px}
+      .orbit-icon{width:40px;height:40px;font-size:16px}
+    }
+
+    /* small helper animations */
+    @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
