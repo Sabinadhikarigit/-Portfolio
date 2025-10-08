@@ -1,916 +1,427 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sabin Adhikari - Web Developer</title>
-    <style>
-        /* Global Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4, #ffd1ff, #a18cd1, #fbc2eb);
-            background-size: 400% 400%;
-            animation: gradientAnimation 15s ease infinite;
-            color: #333;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Background Animation - Colorful Waves */
-        .waves {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 30vh;
-            overflow: hidden;
-            z-index: -1;
-        }
-
-        .wave {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 150px;
-            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46c150,60 350,0 500,-40 150,40 350,80 500,30 150,-50 200,-60 200,10V0H0Z" fill="rgba(255,105,180,0.3)"></path></svg>');
-            background-size: cover;
-            animation: wave-animation 10s linear infinite, colorShift 5s infinite alternate;
-        }
-
-        .wave:nth-child(2) {
-            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46c150,60 350,0 500,-40 150,40 350,80 500,30 150,-50 200,-60 200,10V0H0Z" fill="rgba(0,255,255,0.2)"></path></svg>');
-            animation: wave-animation 15s linear infinite reverse, colorShift 7s infinite alternate;
-            opacity: 0.8;
-        }
-
-        .wave:nth-child(3) {
-            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46c150,60 350,0 500,-40 150,40 350,80 500,30 150,-50 200,-60 200,10V0H0Z" fill="rgba(255,255,0,0.4)"></path></svg>');
-            animation: wave-animation 12s linear infinite, colorShift 6s infinite alternate;
-            opacity: 0.6;
-        }
-
-        @keyframes wave-animation {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1200px); }
-        }
-
-        @keyframes colorShift {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-
-        /* Colorful Animated Headings */
-        h1, h2 {
-            background: linear-gradient(45deg, #ff0000, #ff9900, #ffff00, #00ff00, #00ffff, #0000ff, #9900ff);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: textGradient 5s ease infinite;
-        }
-
-        @keyframes textGradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Navigation */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 50px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-        }
-
-        nav .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ff69b4;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-        }
-
-        nav ul li {
-            margin: 0 15px;
-        }
-
-        nav ul li a {
-            color: #333;
-            text-decoration: none;
-            font-size: 18px;
-            transition: color 0.3s;
-        }
-
-        nav ul li a:hover {
-            color: #ff69b4;
-        }
-
-        /* Header / Hero Section */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 100px 50px;
-            animation: fadeIn 2s ease-in-out;
-            position: relative;
-        }
-
-        header .content {
-            max-width: 50%;
-        }
-
-        header h1 {
-            font-size: 60px;
-            margin-bottom: 10px;
-            animation: textAnimate 3s ease-in-out infinite;
-        }
-
-        header h2 {
-            font-size: 40px;
-            margin-bottom: 20px;
-            animation: textAnimate 3s ease-in-out infinite;
-        }
-
-        @keyframes textAnimate {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        header p {
-            font-size: 20px;
-            margin-bottom: 30px;
-            color: #555;
-        }
-
-        header button {
-            background: linear-gradient(45deg, #ff69b4, #ff1493);
-            border: none;
-            padding: 15px 30px;
-            color: #fff;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        header button:hover {
-            transform: scale(1.1);
-        }
-
-        header .social-icons {
-            margin-top: 20px;
-        }
-
-        header .social-icons a {
-            color: #333;
-            margin-right: 15px;
-            font-size: 24px;
-            transition: color 0.3s, transform 0.3s;
-        }
-
-        header .social-icons a:hover {
-            color: #ff69b4;
-            transform: rotate(360deg);
-        }
-
-        /* Profile Picture with Orbiting Icons */
-        .profile-container {
-            position: relative;
-            width: 300px;
-            height: 300px;
-        }
-
-        .profile-container img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 5px solid #ff69b4;
-            animation: glow 2s infinite alternate;
-        }
-
-        .orbit-icon {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            color: #fff;
-            animation: orbit 10s linear infinite;
-        }
-
-        .orbit-icon:nth-child(2) {
-            background: #e44d26;
-            animation-delay: 0s;
-        }
-
-        .orbit-icon:nth-child(3) {
-            background: #264de4;
-            animation-delay: -2.5s;
-        }
-
-        .orbit-icon:nth-child(4) {
-            background: #f0db4f;
-            animation-delay: -5s;
-        }
-
-        .orbit-icon:nth-child(5) {
-            background: #61dafb;
-            animation-delay: -7.5s;
-        }
-
-        @keyframes orbit {
-            0% { transform: rotate(0deg) translateX(150px) rotate(0deg); }
-            100% { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
-        }
-
-        @keyframes glow {
-            0% { box-shadow: 0 0 10px #ff69b4; }
-            100% { box-shadow: 0 0 30px #ff69b4; }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Animated Dividers */
-        .divider {
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, #ff0000, #ff9900, #ffff00, #00ff00, #00ffff, #0000ff, #9900ff);
-            background-size: 400% 400%;
-            animation: dividerFloat 5s ease infinite;
-            margin: 50px 0;
-        }
-
-        @keyframes dividerFloat {
-            0% { background-position: 0% 50%; transform: translateY(0); }
-            50% { background-position: 100% 50%; transform: translateY(5px); }
-            100% { background-position: 0% 50%; transform: translateY(0); }
-        }
-
-        /* About Section */
-        #about {
-            padding: 100px 50px;
-            display: flex;
-            align-items: center;
-            animation: fadeIn 2s ease-in-out;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        #about img {
-            width: 250px;
-            height: 250px;
-            border-radius: 50%;
-            margin-right: 50px;
-            border: 5px solid #ff69b4;
-            animation: glow 2s infinite alternate;
-        }
-
-        #about .content {
-            max-width: 60%;
-        }
-
-        #about h2 {
-            font-size: 50px;
-            margin-bottom: 20px;
-        }
-
-        #about p {
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: #555;
-        }
-
-        /* Education Table */
-        #about table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        #about table th, #about table td {
-            padding: 15px;
-            border: 1px solid #ff69b4;
-            text-align: left;
-            background: rgba(255, 105, 180, 0.1);
-        }
-
-        #about table th {
-            background: linear-gradient(45deg, #ff69b4, #ff1493);
-            color: #fff;
-        }
-
-        #about .services {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        #about .services button {
-            background: transparent;
-            border: 2px solid #ff69b4;
-            color: #333;
-            padding: 10px 20px;
-            margin: 10px 10px 10px 0;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        #about .services button:hover {
-            background: #ff69b4;
-            color: #fff;
-        }
-
-        /* Skills Section */
-        #skills {
-            padding: 100px 50px;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        #skills h2 {
-            font-size: 50px;
-            margin-bottom: 50px;
-        }
-
-        #skills .skill {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 10px;
-            background: rgba(255, 105, 180, 0.1);
-            border-radius: 10px;
-        }
-
-        #skills .skill-name {
-            font-size: 18px;
-            color: #333;
-        }
-
-        #skills .stars {
-            color: #ffd700;
-            font-size: 20px;
-        }
-
-        /* Projects Section */
-        #projects {
-            padding: 100px 50px;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        #projects h2 {
-            font-size: 50px;
-            margin-bottom: 50px;
-        }
-
-        #projects .project-tabs {
-            margin-bottom: 30px;
-        }
-
-        #projects .project-tabs button {
-            background: linear-gradient(45deg, #ff69b4, #ff1493);
-            border: none;
-            padding: 10px 20px;
-            color: #fff;
-            margin: 0 10px;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        #projects .project-tabs button:hover {
-            transform: scale(1.1);
-        }
-
-        #projects .project-cards {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-        }
-
-        #projects .project-card {
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 20px;
-            padding: 20px;
-            margin: 20px;
-            width: 300px;
-            transition: transform 0.3s;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        #projects .project-card:hover {
-            transform: scale(1.05);
-        }
-
-        #projects .project-card img {
-            width: 100%;
-            border-radius: 10px;
-        }
-
-        #projects .project-card p {
-            margin: 10px 0;
-            color: #555;
-        }
-
-        #projects .project-card a {
-            background: linear-gradient(45deg, #ff69b4, #ff1493);
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 50px;
-            text-decoration: none;
-            margin: 5px;
-            display: inline-block;
-            transition: transform 0.3s;
-        }
-
-        #projects .project-card a:hover {
-            transform: scale(1.1);
-        }
-
-        /* Contact Section */
-        #contact {
-            padding: 100px 50px;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        #contact h2 {
-            font-size: 50px;
-            margin-bottom: 50px;
-        }
-
-        #contact form {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        #contact input, #contact textarea {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            background: rgba(255, 255, 255, 0.5);
-            border: none;
-            color: #333;
-            border-radius: 10px;
-        }
-
-        #contact button {
-            background: linear-gradient(45deg, #ff69b4, #ff1493);
-            border: none;
-            padding: 15px 30px;
-            color: #fff;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        #contact button:hover {
-            transform: scale(1.1);
-        }
-
-        #contact .contact-info {
-            margin-top: 30px;
-        }
-
-        #contact .contact-info p {
-            margin: 10px 0;
-            font-size: 18px;
-            color: #555;
-        }
-
-        #contact .social-icons {
-            margin-top: 20px;
-        }
-
-        #contact .social-icons a {
-            color: #333;
-            margin: 0 15px;
-            font-size: 24px;
-            transition: color 0.3s, transform 0.3s;
-        }
-
-        #contact .social-icons a:hover {
-            color: #ff69b4;
-            transform: rotate(360deg);
-        }
-
-        /* Footer */
-        footer {
-            padding: 20px 50px;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-        }
-
-        footer ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            margin-bottom: 10px;
-        }
-
-        footer ul li {
-            margin: 0 15px;
-        }
-
-        footer ul li a {
-            color: #333;
-            text-decoration: none;
-        }
-
-        footer p {
-            font-size: 14px;
-            color: #555;
-        }
-
-        footer .social-icons {
-            margin-top: 10px;
-        }
-
-        footer .social-icons a {
-            color: #333;
-            margin: 0 15px;
-            font-size: 24px;
-            transition: color 0.3s, transform 0.3s;
-        }
-
-        footer .social-icons a:hover {
-            color: #ff69b4;
-            transform: rotate(360deg);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            header, #about {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            header .content, #about .content {
-                max-width: 100%;
-                margin-bottom: 50px;
-            }
-
-            .profile-container {
-                margin: 0 auto;
-            }
-
-            #about img {
-                margin-right: 0;
-                margin-bottom: 30px;
-            }
-
-            #projects .project-cards {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-
-        @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-            }
-
-            nav ul {
-                margin-top: 20px;
-            }
-
-            header {
-                padding: 50px 20px;
-            }
-
-            header h1 {
-                font-size: 40px;
-            }
-
-            header h2 {
-                font-size: 30px;
-            }
-
-            .profile-container {
-                width: 200px;
-                height: 200px;
-            }
-
-            .orbit-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 20px;
-            }
-
-            @keyframes orbit {
-                0% { transform: rotate(0deg) translateX(100px) rotate(0deg); }
-                100% { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
-            }
-
-            #about, #skills, #projects, #contact {
-                padding: 50px 20px;
-            }
-
-            #about h2, #skills h2, #projects h2, #contact h2 {
-                font-size: 40px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            nav {
-                padding: 10px 20px;
-            }
-
-            nav ul li {
-                margin: 0 10px;
-            }
-
-            nav ul li a {
-                font-size: 16px;
-            }
-
-            header h1 {
-                font-size: 30px;
-            }
-
-            header h2 {
-                font-size: 24px;
-            }
-
-            header p {
-                font-size: 16px;
-            }
-
-            .profile-container {
-                width: 150px;
-                height: 150px;
-            }
-
-            .orbit-icon {
-                width: 30px;
-                height: 30px;
-                font-size: 16px;
-            }
-
-            @keyframes orbit {
-                0% { transform: rotate(0deg) translateX(75px) rotate(0deg); }
-                100% { transform: rotate(360deg) translateX(75px) rotate(-360deg); }
-            }
-
-            #about h2, #skills h2, #projects h2, #contact h2 {
-                font-size: 30px;
-            }
-
-            #about table th, #about table td {
-                padding: 10px;
-                font-size: 14px;
-            }
-
-            #skills .skill {
-                flex-direction: column;
-            }
-
-            #skills .stars {
-                margin-top: 10px;
-            }
-        }
-    </style>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sabin Adhikari — Web Developer</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    /* =========================
+       THEME VARIABLES (easy to tweak)
+       ========================= */
+    :root{
+      /* primary palette */
+      --bg-deep: #3d0e3c;              /* requested background */
+      --btn-accent: #ad2dd3;           /* requested button color */
+      /* blue animated mix (used as primary animated accent) */
+      --blue-1: #3a8ef6;
+      --blue-2: #0068ff;
+      --blue-3: #004cff;
+
+      /* neutrals */
+      --text: #e9e9f1;
+      --muted: rgba(233,233,241,0.75);
+
+      /* layout */
+      --max-width: 1200px;
+      --radius: 12px;
+      --glass: rgba(255,255,255,0.04);
+      --glass-strong: rgba(255,255,255,0.06);
+
+      /* transitions */
+      --fast: 180ms;
+      --med: 300ms;
+      --slow: 600ms;
+    }
+
+    /* Dark / Light theme overrides */
+    :root[data-theme="light"]{
+      --bg-deep: linear-gradient(180deg, #fafcff, #eef2ff);
+      --text: #1b1b1f;
+      --muted: rgba(27,27,31,0.65);
+      --glass: rgba(255,255,255,0.6);
+      --glass-strong: rgba(255,255,255,0.8);
+    }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      :root{ --slow: 0ms; --med: 0ms; --fast: 0ms; }
+    }
+
+    /* =========================
+       BASIC RESET & LAYOUT
+       ========================= */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: 'Poppins', sans-serif;
+      color:var(--text);
+      background: var(--bg-deep);
+      background-size:cover;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      overflow-x:hidden;
+      transition: background var(--med) ease, color var(--med) ease;
+    }
+
+    /* container center */
+    .wrap{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+
+    /* =========================
+       NAV
+       ========================= */
+    nav{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:18px 0;position:sticky;top:0;z-index:50;
+      background: linear-gradient(180deg, rgba(0,0,0,0.18), transparent);
+      backdrop-filter: blur(6px);
+    }
+    .logo{font-weight:700;color:var(--btn-accent);font-size:20px}
+    nav ul{display:flex;gap:18px;list-style:none}
+    nav a{color:var(--text);text-decoration:none;font-weight:600;opacity:.95}
+    nav a:hover{opacity:1;transform:translateY(-2px);transition:var(--fast) transform}
+    .controls{display:flex;gap:12px;align-items:center}
+
+    /* toggle button */
+    .toggle{
+      background:transparent;border:2px solid var(--btn-accent);
+      color:var(--btn-accent);padding:8px 12px;border-radius:999px;
+      cursor:pointer;font-weight:600;display:inline-flex;gap:8px;align-items:center;
+      transition:all var(--fast) ease;
+    }
+    .toggle:active{transform:scale(.98)}
+
+    /* =========================
+       HERO
+       ========================= */
+    header{
+      display:flex;gap:28px;align-items:center;padding:64px 0 48px;
+      animation:fadeIn .9s ease both;
+    }
+    .hero-left{flex:1;max-width:55%}
+    .hero-right{width:320px;min-width:220px;display:flex;justify-content:center}
+
+    h1{
+      font-size:44px;margin-bottom:8px;
+      background: linear-gradient(90deg,var(--blue-1),var(--blue-2),var(--blue-3));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      background-size:200% 200%;animation:headingMove 6s ease infinite;
+    }
+    h2{font-size:28px;margin-bottom:18px;color:var(--muted)}
+
+    @keyframes headingMove{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    p.lead{font-size:18px;color:var(--muted);margin-bottom:20px}
+
+    .cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+    .btn{
+      background:var(--btn-accent);color:#fff;border:none;padding:12px 20px;border-radius:999px;
+      cursor:pointer;font-weight:700;box-shadow:0 6px 18px rgba(0,0,0,0.18);
+      transition:transform var(--fast) ease, box-shadow var(--fast) ease;
+    }
+    .btn:active{transform:translateY(1px)}
+    .btn.secondary{
+      background: linear-gradient(90deg,var(--blue-2),var(--blue-3));
+      border:2px solid rgba(255,255,255,0.06);
+    }
+
+    /* simple social icons */
+    .social-icons a{color:var(--text);margin-right:12px;font-size:20px;opacity:.9}
+    .social-icons a:hover{transform:rotate(360deg);transition:transform 600ms linear}
+
+    /* =========================
+       PROFILE PIE (image + orbit icons)
+       ========================= */
+    .profile-container{position:relative;width:320px;height:320px;border-radius:50%;display:grid;place-items:center}
+    .profile-container img{
+      width:100%;height:100%;object-fit:cover;border-radius:50%;border:6px solid rgba(255,255,255,0.06);
+      box-shadow:0 20px 40px rgba(2,6,23,0.5);
+    }
+
+    /* orbit icons - use transform-only animation for perf */
+    .orbit-icon{
+      position:absolute;top:50%;left:50%;width:52px;height:52px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;background:linear-gradient(90deg,var(--blue-1),var(--blue-2));
+      color:#fff;font-size:20px;transform-origin:center center;filter:drop-shadow(0 6px 12px rgba(0,0,0,0.35));
+      animation:orbit 12s linear infinite;
+    }
+    .orbit-icon:nth-child(2){animation-duration:10s}
+    .orbit-icon:nth-child(3){animation-duration:14s}
+    .orbit-icon:nth-child(4){animation-duration:11s}
+
+    @keyframes orbit{
+      0%{transform:rotate(0deg) translateX(150px) rotate(0deg)}
+      100%{transform:rotate(360deg) translateX(150px) rotate(-360deg)}
+    }
+
+    /* =========================
+       DIVIDER (animated blue gradient bar)
+       ========================= */
+    .divider{
+      height:3px;width:100%;border-radius:8px;margin:48px 0;
+      background:linear-gradient(90deg,var(--blue-1),var(--blue-2),var(--blue-3));
+      background-size:200% 200%;animation:dividerShift 6s linear infinite;
+    }
+    @keyframes dividerShift{0%{background-position:0%}50%{background-position:100%}100%{background-position:0%}}
+
+    /* =========================
+       ABOUT (table + services)
+       ========================= */
+    #about{display:flex;gap:28px;align-items:center;padding:48px 0;background:var(--glass);border-radius:16px;padding:48px}
+    #about img{width:220px;height:220px;border-radius:50%;border:5px solid rgba(255,255,255,0.05);object-fit:cover}
+    #about h2{font-size:30px;margin-bottom:10px;color:var(--text)}
+    table{width:100%;border-collapse:collapse;margin-top:10px}
+    th,td{padding:12px;border:1px solid rgba(255,255,255,0.04);text-align:left;background:rgba(255,255,255,0.02);font-size:14px}
+    th{background:linear-gradient(90deg,var(--blue-2),var(--blue-3));color:#fff}
+
+    .services{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+    .services button{background:transparent;border:1.5px solid var(--btn-accent);color:var(--text);padding:8px 14px;border-radius:999px;cursor:pointer}
+
+    /* =========================
+       SKILLS / PROJECTS / CONTACT
+       ========================= */
+    section{padding:48px 0}
+    #skills .skill{display:flex;justify-content:space-between;align-items:center;max-width:640px;margin:10px auto;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02)}
+    .stars{color:gold}
+
+    .project-cards{display:flex;gap:20px;flex-wrap:wrap;justify-content:center}
+    .project-card{width:300px;padding:18px;border-radius:14px;background:var(--glass-strong);box-shadow:0 12px 30px rgba(0,0,0,0.25);transition:transform var(--fast)}
+    .project-card img{width:100%;border-radius:8px}
+    .project-card a{display:inline-block;margin-top:8px;text-decoration:none;padding:8px 14px;border-radius:999px;background:var(--btn-accent);color:#fff}
+
+    /* CONTACT */
+    #contact form{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+    input,textarea{padding:12px;border-radius:10px;border:none;background:rgba(255,255,255,0.03);color:var(--text);outline:none}
+    textarea{min-height:120px;resize:vertical}
+    footer{padding:24px 0;text-align:center;color:var(--muted)}
+
+    /* small screens */
+    @media (max-width:1024px){
+      header{flex-direction:column;text-align:center}
+      .hero-left{max-width:100%}
+      .hero-right{width:260px}
+      .profile-container{width:260px;height:260px}
+      #about{flex-direction:column;text-align:center;padding:36px}
+      #about img{margin-bottom:14px}
+      .project-cards{flex-direction:column;align-items:center}
+    }
+
+    @media (max-width:480px){
+      h1{font-size:28px}
+      h2{font-size:20px}
+      .profile-container{width:180px;height:180px}
+      .orbit-icon{width:40px;height:40px;font-size:16px}
+    }
+
+    /* small helper animations */
+    @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  </style>
 </head>
 <body>
-    <div class="waves">
-        <div class="wave"></div>
-        <div class="wave"></div>
-        <div class="wave"></div>
+  <nav class="wrap" aria-label="Main navigation">
+    <div class="logo">Sabin&lt;/&gt;</div>
+
+    <ul aria-hidden="false">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="controls">
+      <button class="toggle" id="theme-toggle" aria-pressed="false" title="Toggle dark/light">
+        <i id="toggle-icon" class="fa-regular fa-moon"></i>
+        <span id="toggle-label">Dark</span>
+      </button>
+      <a class="toggle" href="#contact" title="Contact">Contact</a>
     </div>
+  </nav>
 
-    <nav>
-        <div class="logo">Sabin&lt;/&gt;</div>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+  <main class="wrap" id="home">
+    <header>
+      <div class="hero-left">
+        <h1>Hi, I'm Sabin Adhikari</h1>
+        <h2>Web Developer</h2>
+        <p class="lead">Crafting modern, responsive, and user-friendly websites with passion and precision. I build interactive apps that solve problems and deliver delightful experiences.</p>
 
-    <header id="home">
-        <div class="content">
-            <h1>Hi, I'm Sabin Adhikari</h1>
-            <h2>Web Developer</h2>
-            <p>Crafting modern, responsive, and user-friendly websites with passion and precision. I focus on building interactive applications that solve everyday problems and provide seamless user experiences.</p>
-            <button onclick="alert('Resume download not implemented yet. Add your resume link here!')">Download Resume</button>
-            <div class="social-icons">
-                <a href="https://github.com/Sabinadhikarigit" title="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://facebook.com/yourprofile" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://instagram.com/yourprofile" title="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://wa.me/yournumber" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-            </div>
+        <div class="cta-row">
+          <button class="btn" onclick="window.open('#', '_blank')">Download Resume</button>
+          <button class="btn secondary" onclick="window.open('https://github.com/Sabinadhikarigit','_blank')">
+            <i class="fa-brands fa-github"></i>&nbsp;View GitHub
+          </button>
+          <div class="social-icons" aria-hidden="false">
+            <a href="https://github.com/Sabinadhikarigit" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://facebook.com/yourprofile" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://instagram.com/yourprofile" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/yournumber" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
         </div>
-        <div class="profile-container">
-            <img src="https://via.placeholder.com/300x300?text=Your+Photo" alt="Sabin Adhikari">
-            <div class="orbit-icon"><i class="fab fa-html5"></i></div>
-            <div class="orbit-icon"><i class="fab fa-css3-alt"></i></div>
-            <div class="orbit-icon"><i class="fab fa-js-square"></i></div>
-            <div class="orbit-icon"><i class="fab fa-react"></i></div>
+      </div>
+
+      <div class="hero-right">
+        <div class="profile-container" aria-hidden="false">
+          <img src="https://via.placeholder.com/320x320?text=Your+Photo" alt="Sabin Adhikari">
+          <div class="orbit-icon" style="--i:1"><i class="fab fa-html5"></i></div>
+          <div class="orbit-icon" style="--i:2"><i class="fab fa-css3-alt"></i></div>
+          <div class="orbit-icon" style="--i:3"><i class="fab fa-js-square"></i></div>
+          <div class="orbit-icon" style="--i:4"><i class="fab fa-react"></i></div>
         </div>
+      </div>
     </header>
 
     <div class="divider"></div>
 
     <section id="about">
-        <img src="https://via.placeholder.com/250x250?text=About+Photo" alt="About Sabin">
-        <div class="content">
-            <h2>About Me</h2>
-            <p>I'm Sabin Adhikari, a passionate Web Developer currently pursuing my BCA in the 3rd semester at Lumbini Academic College. With a strong foundation in web technologies, I enjoy turning ideas into functional and aesthetically pleasing digital experiences. My journey in tech started with my education, and I've gained practical experience through teaching and personal projects.</p>
-            <h3>Education</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Institution</th>
-                        <th>Program</th>
-                        <th>Batch/Year</th>
-                        <th>GPA</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Akashganga International Academy</td>
-                        <td>SEE</td>
-                        <td>2077</td>
-                        <td>3.25</td>
-                    </tr>
-                    <tr>
-                        <td>Jaya Multiple Campus</td>
-                        <td>Class 11 and 12</td>
-                        <td>2081</td>
-                        <td>3.18 (Grade 12)</td>
-                    </tr>
-                    <tr>
-                        <td>Lumbini Academic College</td>
-                        <td>BCA (3rd Semester)</td>
-                        <td>Current</td>
-                        <td>N/A</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p><strong>Experience:</strong> Computer Science Teacher at Bibhuti Pathashala for 2 years</p>
-            <p><strong>Hobbies:</strong> Travelling, Music, Coding</p>
-            <div class="services">
-                <button>Web Application Development</button>
-                <button>Frontend Development</button>
-                <button>Problem Solving</button>
-            </div>
+      <img src="https://via.placeholder.com/220x220?text=About+Photo" alt="About Sabin">
+      <div>
+        <h2>About Me</h2>
+        <p>I'm Sabin Adhikari, a passionate Web Developer currently pursuing my BCA in the 3rd semester at Lumbini Academic College. I enjoy turning ideas into functional and aesthetically pleasing digital experiences. I also teach computer science and build personal projects to sharpen my skills.</p>
+
+        <h3 style="margin-top:14px">Education</h3>
+        <table>
+          <thead>
+            <tr><th>Institution</th><th>Program</th><th>Batch/Year</th><th>GPA</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Akashganga International Academy</td><td>SEE</td><td>2077</td><td>3.25</td></tr>
+            <tr><td>Jaya Multiple Campus</td><td>Class 11 and 12</td><td>2081</td><td>3.18</td></tr>
+            <tr><td>Lumbini Academic College</td><td>BCA (3rd Semester)</td><td>Current</td><td>N/A</td></tr>
+          </tbody>
+        </table>
+
+        <p style="margin-top:12px"><strong>Experience:</strong> Computer Science Teacher at Bibhuti Pathashala for 2 years</p>
+        <p><strong>Hobbies:</strong> Travelling, Music, Coding</p>
+
+        <div class="services" aria-hidden="false">
+          <button>Web Application Development</button>
+          <button>Frontend Development</button>
+          <button>Problem Solving</button>
         </div>
+      </div>
     </section>
 
     <div class="divider"></div>
 
     <section id="skills">
-        <h2>My Skills</h2>
-        <div class="skill">
-            <span class="skill-name">HTML - Advanced</span>
-            <div class="stars">
-                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-            </div>
-        </div>
-        <div class="skill">
-            <span class="skill-name">CSS - Intermediate</span>
-            <div class="stars">
-                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
-            </div>
-        </div>
-        <div class="skill">
-            <span class="skill-name">Tailwind CSS - Intermediate</span>
-            <div class="stars">
-                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
-            </div>
-        </div>
-        <div class="skill">
-            <span class="skill-name">JS - Basic</span>
-            <div class="stars">
-                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-            </div>
-        </div>
-        <div class="skill">
-            <span class="skill-name">React - Basic</span>
-            <div class="stars">
-                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-            </div>
-        </div>
+      <h2 style="text-align:center;margin-bottom:18px">My Skills</h2>
+      <div class="skill"><span>HTML - Advanced</span><div class="stars">★★★★★</div></div>
+      <div class="skill"><span>CSS - Intermediate</span><div class="stars">★★★★☆</div></div>
+      <div class="skill"><span>Tailwind CSS - Intermediate</span><div class="stars">★★★★☆</div></div>
+      <div class="skill"><span>JS - Basic</span><div class="stars">★★★☆☆</div></div>
+      <div class="skill"><span>React - Basic</span><div class="stars">★★★☆☆</div></div>
     </section>
 
     <div class="divider"></div>
 
     <section id="projects">
-        <h2>My Projects</h2>
-        <div class="project-tabs">
-            <button>Web Application</button>
-        </div>
-        <div class="project-cards">
-            <div class="project-card">
-                <img src="https://via.placeholder.com/300x200?text=Calculator" alt="Calculator">
-                <p>A simple calculator application built using HTML, CSS, and JavaScript to perform basic arithmetic operations with a clean interface.</p>
-                <a href="https://github.com/Sabinadhikarigit?tab=repositories">Repository</a>
-                <a href="#">Demo</a>
-            </div>
-            <div class="project-card">
-                <img src="https://via.placeholder.com/300x200?text=Schoolworkspro+Clone" alt="Schoolworkspro Clone">
-                <p>A clone of Schoolworkspro.com, replicating features for school management, including user dashboards and data handling.</p>
-                <a href="https://github.com/Sabinadhikarigit?tab=repositories">Repository</a>
-                <a href="#">Demo</a>
-            </div>
-            <div class="project-card">
-                <img src="https://via.placeholder.com/300x200?text=Myntra+Clone" alt="Myntra Clone">
-                <p>A responsive clone of the Myntra e-commerce platform, focusing on product display, search, and shopping cart functionality.</p>
-                <a href="https://github.com/Sabinadhikarigit?tab=repositories">Repository</a>
-                <a href="#">Demo</a>
-            </div>
-            <div class="project-card">
-                <img src="https://via.placeholder.com/300x200?text=ToDo+App" alt="ToDo App">
-                <p>A ToDo list application for task management, allowing users to add, edit, delete, and mark tasks as complete.</p>
-                <a href="https://github.com/Sabinadhikarigit?tab=repositories">Repository</a>
-                <a href="#">Demo</a>
-            </div>
-        </div>
+      <h2 style="text-align:center;margin-bottom:20px">My Projects</h2>
+      <div class="project-cards">
+        <article class="project-card">
+          <img src="https://via.placeholder.com/300x180?text=Calculator" alt="Calculator project">
+          <p>A simple calculator app built with HTML, CSS & JS.</p>
+          <a href="https://github.com/Sabinadhikarigit?tab=repositories">Repository</a>
+        </article>
+
+        <article class="project-card">
+          <img src="https://via.placeholder.com/300x180?text=Schoolworkspro+Clone" alt="Schoolworkspro clone">
+          <p>School management clone: dashboards & core features.</p>
+          <a href="https://github.com/Sabinadhikarigit?tab=repositories">Repository</a>
+        </article>
+
+        <article class="project-card">
+          <img src="https://via.placeholder.com/300x180?text=ToDo+App" alt="ToDo app">
+          <p>ToDo list with storage & editing capabilities.</p>
+          <a href="https://github.com/Sabinadhikarigit?tab=repositories">Repository</a>
+        </article>
+      </div>
     </section>
 
     <div class="divider"></div>
 
     <section id="contact">
-        <h2>Contact</h2>
-        <form onsubmit="alert('Message sent! (Simulation)'); return false;">
-            <input type="text" placeholder="Name" required>
-            <input type="email" placeholder="Email" required>
-            <textarea placeholder="Message" required></textarea>
-            <button type="submit">Send a message</button>
-        </form>
-        <div class="contact-info">
-            <p>Phone: 9765964997, 9818298542</p>
-            <p>Email: binsone001@gmail.com</p>
-            <p>GitHub: <a href="https://github.com/Sabinadhikarigit" style="color: #ff69b4;">https://github.com/Sabinadhikarigit</a></p>
-        </div>
-        <div class="social-icons">
-            <a href="https://github.com/Sabinadhikarigit" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://facebook.com/yourprofile" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://instagram.com/yourprofile" title="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://wa.me/yournumber" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        </div>
+      <h2 style="text-align:center;margin-bottom:18px">Contact</h2>
+      <form onsubmit="alert('Message sent! (Simulation)');return false;">
+        <input type="text" placeholder="Name" required>
+        <input type="email" placeholder="Email" required>
+        <textarea placeholder="Message" required></textarea>
+        <button class="btn" type="submit">Send a message</button>
+      </form>
+
+      <div style="text-align:center;margin-top:18px;color:var(--muted)">
+        <p>Phone: 9765964997, 9818298542</p>
+        <p>Email: <a href="mailto:binsone001@gmail.com" style="color:var(--btn-accent)">binsone001@gmail.com</a></p>
+        <p>GitHub: <a href="https://github.com/Sabinadhikarigit" style="color:var(--btn-accent)">github.com/Sabinadhikarigit</a></p>
+      </div>
     </section>
 
     <footer>
-        <div class="logo">Sabin&lt;/&gt;</div>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-        <div class="social-icons">
-            <a href="https://github.com/Sabinadhikarigit" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://facebook.com/yourprofile" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://instagram.com/yourprofile" title="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://wa.me/yournumber" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        </div>
-        <p>&copy; All rights reserved</p>
+      <div class="logo">Sabin&lt;/&gt;</div>
+      <p>&copy; All rights reserved</p>
     </footer>
+  </main>
 
-    <script>
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
+  <script>
+    // --------------------------
+    // Theme toggle + persistence
+    // --------------------------
+    (function(){
+      const root = document.documentElement;
+      const toggle = document.getElementById('theme-toggle');
+      const label = document.getElementById('toggle-label');
+      const icon = document.getElementById('toggle-icon');
+
+      // apply saved theme (or system preference)
+      const saved = localStorage.getItem('sab_theme');
+      if(saved){
+        root.setAttribute('data-theme', saved);
+        updateToggle(saved);
+      } else {
+        // prefer dark by default (since background requested is dark)
+        const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+        const defaultTheme = prefersLight ? 'light' : 'dark';
+        root.setAttribute('data-theme', defaultTheme);
+        updateToggle(defaultTheme);
+      }
+
+      function updateToggle(theme){
+        const isLight = theme === 'light';
+        toggle.setAttribute('aria-pressed', isLight ? 'true' : 'false');
+        label.textContent = isLight ? 'Light' : 'Dark';
+        icon.className = isLight ? 'fa-regular fa-sun' : 'fa-regular fa-moon';
+      }
+
+      toggle.addEventListener('click', () => {
+        const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+        const next = current === 'light' ? 'dark' : 'light';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem('sab_theme', next);
+        updateToggle(next);
+      });
+    })();
+
+    // Smooth scroll for internal anchors
+    document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+      anchor.addEventListener('click', function(e){
+        const target = document.querySelector(this.getAttribute('href'));
+        if(target){
+          e.preventDefault();
+          target.scrollIntoView({behavior:'smooth'});
+        }
+      });
+    });
+  </script>
 </body>
 </html>
